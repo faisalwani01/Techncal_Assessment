@@ -22,11 +22,7 @@ public class UserDao {
         return userRepository.findByEmailAddress(emailAddress);
     }
 
-    public UserEntity findOrDie(long id) throws UserNotFoundException {
-        return find(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " does not exist."));
-    }
-
-    public UserEntity findByEmailAddressorDie(String emailAddress) throws UserNotFoundException {
+    public UserEntity findByEmailAddressOrDie(String emailAddress) throws UserNotFoundException {
         return findByEmailAddress(emailAddress).orElseThrow(() -> new UserNotFoundException("User with email address " + emailAddress + " does not exist."));
     }
 }

@@ -30,22 +30,18 @@ public class UserService {
         return userDao.find(id);
     }
 
-    public UserEntity findOrDie(long id) throws UserNotFoundException {
-        return userDao.findOrDie(id);
-    }
-
     public PermissionStatus getUserPermission(String emailAddress, String featureName) throws UserNotFoundException, FeatureNotFoundException {
-        UserEntity userEntity = userDao.findByEmailAddressorDie(emailAddress);
-        Features features = featureService.findByFeatureNameorDie(featureName);
+        UserEntity userEntity = userDao.findByEmailAddressOrDie(emailAddress);
+        Features features = featureService.findByFeatureNameOrDie(featureName);
 
         Optional<UserFeatureEntity> userFeatureEntity = userFeatureService.findUserFeatureEntitiesByUserIdAndFeatureId(userEntity.getId(), features.getId());
 
         return new PermissionStatus(userFeatureEntity.isPresent() && userFeatureEntity.get().isStatus()) ;
     }
 
-    public boolean setUserPermission(UserFeatureDTO userFeatureDTO) throws UserNotFoundException, FeatureNotFoundException {
-        UserEntity userEntity = userDao.findByEmailAddressorDie(userFeatureDTO.getEmail());
-        Features features = featureService.findByFeatureNameorDie(userFeatureDTO.getFeatureName());
+    public boolean saveUserPermission(UserFeatureDTO userFeatureDTO) throws UserNotFoundException, FeatureNotFoundException {
+        UserEntity userEntity = userDao.findByEmailAddressOrDie(userFeatureDTO.getEmail());
+        Features features = featureService.findByFeatureNameOrDie(userFeatureDTO.getFeatureName());
 
         Optional<UserFeatureEntity> userFeatureEntity = userFeatureService.findUserFeatureEntitiesByUserIdAndFeatureId(userEntity.getId(), features.getId());
 

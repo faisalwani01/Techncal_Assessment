@@ -21,31 +21,16 @@ class UserController {
 
     @RequestMapping(value = "feature", method = RequestMethod.GET)
     public @ResponseBody
-    PermissionStatus getItem(@RequestParam("email") String email, @RequestParam("featureName") String featureName) throws UserNotFoundException, FeatureNotFoundException {
+    PermissionStatus getUserPermission(@RequestParam("email") String email, @RequestParam("featureName") String featureName) throws UserNotFoundException, FeatureNotFoundException {
         return userService.getUserPermission(email, featureName);
     }
 
     @PostMapping("/feature")
-    public ResponseEntity<Object> createUser(@RequestBody UserFeatureDTO userFeatureDTO) throws UserNotFoundException, FeatureNotFoundException {
-        return userService.setUserPermission(userFeatureDTO) ? ResponseEntity.ok().build() : ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+    public ResponseEntity<Object> saveUserPermission(@RequestBody UserFeatureDTO userFeatureDTO) throws UserNotFoundException, FeatureNotFoundException {
+        if (userService.saveUserPermission(userFeatureDTO)) {
+           return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+        }
     }
-
-	/*@GetMapping("/search/users/{searchText}")
-	List<UserEntity> getUser(@PathVariable String searchText) {
-		return userService.searchUsers(searchText);
-	}
-
-	@RequestMapping(method = RequestMethod.HEAD, value = "/users/{userId}")
-	void checkExists(@PathVariable Long userId) throws UserNotFoundException {
-		userService.checkUserExists(userId);
-	}
-
-
-
-	@DeleteMapping("/users/{userId}")
-	public void deleteUser(@PathVariable Long userId) throws UserNotFoundException{
-		userService.delete(userId);
-	}
-*/
-
 }

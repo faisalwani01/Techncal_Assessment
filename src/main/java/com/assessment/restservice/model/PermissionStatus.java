@@ -13,6 +13,9 @@ public class PermissionStatus implements Serializable {
         this.canAccess = canAccess;
     }
 
+    public PermissionStatus() {
+    }
+
     public PermissionStatus(boolean canAccess) {
         this.canAccess = canAccess;
     }

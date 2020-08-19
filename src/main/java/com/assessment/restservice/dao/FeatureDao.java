@@ -14,14 +14,6 @@ public class FeatureDao {
     @Autowired
     private FeatureRepository featureRepository;
 
-    public Optional<Features> findById(long id) {
-        return featureRepository.findById(id);
-    }
-
-    public Optional<Features> findByFeatureName(String featureName) {
-        return featureRepository.findByFeatureName(featureName);
-    }
-
     public Features findByFeatureNameOrDie(String featureName) throws FeatureNotFoundException {
         return featureRepository.findByFeatureName(featureName).orElseThrow(() -> new FeatureNotFoundException("Feature with name " + featureName + " does not exist."));
     }

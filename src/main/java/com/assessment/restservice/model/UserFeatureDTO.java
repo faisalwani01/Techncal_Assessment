@@ -33,4 +33,14 @@ public class UserFeatureDTO implements Serializable {
     public void setEnable(boolean enable) {
         this.enable = enable;
     }
+
+    public UserFeatureDTO() {
+
+    }
+
+    public UserFeatureDTO(String email, String featureName, boolean enable) {
+        this.email = email;
+        this.featureName = featureName;
+        this.enable = enable;
+    }
 }
