@@ -45,18 +45,6 @@ public class UserControllerTest {
                 .andExpect(status().isNotModified());
     }
 
-    @Test
-    void shouldSetUserPermissionSuccess() throws Exception {
-
-        UserFeatureDTO userFeatureDTO = new UserFeatureDTO("break@gmail.com", "create", true);
-
-        doReturn(true).when(userService).saveUserPermission(userFeatureDTO);
-
-        mockMvc.perform(post("/api/v1/feature")
-                .content(asJsonString(userFeatureDTO))
-                .contentType("application/json"))
-                .andExpect(status().isOk());
-    }
 
     @Test
     void checkForUserPermission() throws Exception {
